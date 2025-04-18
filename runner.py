@@ -20,6 +20,7 @@ moveFont = pygame.font.Font("OpenSans-Regular.ttf", 60)
 user = None
 board = ttt.initial_state()
 ai_turn = False
+difficulty = None
 
 while True:
 
@@ -29,7 +30,7 @@ while True:
 
     screen.fill(black)
 
-    # Let user choose a player.
+    # Let user choose a player and difficulty.
     if user is None:
 
         # Draw title
@@ -38,20 +39,60 @@ while True:
         titleRect.center = ((width / 2), 50)
         screen.blit(title, titleRect)
 
-        # Draw buttons
-        playXButton = pygame.Rect((width / 8), (height / 2), width / 4, 50)
+        # Draw buttons for X or O
+        playXButton = pygame.Rect((width / 8), (height / 2) - 50, width / 4, 50)
         playX = mediumFont.render("Play as X", True, black)
         playXRect = playX.get_rect()
         playXRect.center = playXButton.center
         pygame.draw.rect(screen, white, playXButton)
         screen.blit(playX, playXRect)
 
-        playOButton = pygame.Rect(5 * (width / 8), (height / 2), width / 4, 50)
+        playOButton = pygame.Rect(5 * (width / 8), (height / 2) - 50, width / 4, 50)
         playO = mediumFont.render("Play as O", True, black)
         playORect = playO.get_rect()
         playORect.center = playOButton.center
         pygame.draw.rect(screen, white, playOButton)
         screen.blit(playO, playORect)
+        
+        # Draw difficulty selection buttons
+        difficultyText = mediumFont.render("Select Difficulty:", True, white)
+        difficultyRect = difficultyText.get_rect()
+        difficultyRect.center = ((width / 2), (height / 2) + 30)
+        screen.blit(difficultyText, difficultyRect)
+        
+        easyButton = pygame.Rect((width / 8), (height / 2) + 70, width / 5, 50)
+        easy = mediumFont.render("Easy", True, black)
+        easyRect = easy.get_rect()
+        easyRect.center = easyButton.center
+        pygame.draw.rect(screen, white, easyButton)
+        screen.blit(easy, easyRect)
+        
+        mediumButton = pygame.Rect((width / 2) - (width / 10), (height / 2) + 70, width / 5, 50)
+        medium = mediumFont.render("Medium", True, black)
+        mediumRect = medium.get_rect()
+        mediumRect.center = mediumButton.center
+        pygame.draw.rect(screen, white, mediumButton)
+        screen.blit(medium, mediumRect)
+        
+        hardButton = pygame.Rect(7 * (width / 10), (height / 2) + 70, width / 5, 50)
+        hard = mediumFont.render("Hard", True, black)
+        hardRect = hard.get_rect()
+        hardRect.center = hardButton.center
+        pygame.draw.rect(screen, white, hardButton)
+        screen.blit(hard, hardRect)
+        
+        # Display current selections
+        if user is not None:
+            userText = mediumFont.render(f"Player: {user}", True, white)
+            userRect = userText.get_rect()
+            userRect.center = ((width / 2), (height / 2) + 150)
+            screen.blit(userText, userRect)
+            
+        if difficulty is not None:
+            diffText = mediumFont.render(f"Difficulty: {difficulty.capitalize()}", True, white)
+            diffRect = diffText.get_rect()
+            diffRect.center = ((width / 2), (height / 2) + 180)
+            screen.blit(diffText, diffRect)
 
         # Check if button is clicked
         click, _, _ = pygame.mouse.get_pressed()
@@ -63,6 +104,22 @@ while True:
             elif playOButton.collidepoint(mouse):
                 time.sleep(0.2)
                 user = ttt.O
+            elif easyButton.collidepoint(mouse):
+                time.sleep(0.2)
+                difficulty = ttt.EASY
+            elif mediumButton.collidepoint(mouse):
+                time.sleep(0.2)
+                difficulty = ttt.MEDIUM
+            elif hardButton.collidepoint(mouse):
+                time.sleep(0.2)
+                difficulty = ttt.HARD
+                
+        # Start game once player and difficulty are selected
+        if user is not None and difficulty is not None:
+            time.sleep(0.5)  # Short delay before starting game
+            # If user is O, AI goes first
+            if user == ttt.O:
+                ai_turn = True
 
     else:
 
@@ -107,12 +164,18 @@ while True:
         titleRect = title.get_rect()
         titleRect.center = ((width / 2), 30)
         screen.blit(title, titleRect)
+        
+        # Display current difficulty
+        diffText = mediumFont.render(f"Difficulty: {difficulty.capitalize()}", True, white)
+        diffRect = diffText.get_rect()
+        diffRect.center = ((width / 2), 70)
+        screen.blit(diffText, diffRect)
 
         # Check for AI move
         if user != player and not game_over:
             if ai_turn:
                 time.sleep(0.5)
-                move = ttt.minimax(board)
+                move = ttt.minimax(board, difficulty)
                 board = ttt.result(board, move)
                 ai_turn = False
             else:
@@ -142,5 +205,6 @@ while True:
                     user = None
                     board = ttt.initial_state()
                     ai_turn = False
+                    difficulty = None
 
     pygame.display.flip()
