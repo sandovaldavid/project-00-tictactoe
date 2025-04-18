@@ -1,7 +1,7 @@
 # 🎮 Proyecto Tic Tac Toe
 
-[![Python](https://img.shields.io/badge/Python-3.x-blue.svg)](https://www.python.org/)
-[![Pygame](https://img.shields.io/badge/Pygame-2.x-green.svg)](https://www.pygame.org/)
+[![Python](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/)
+[![Pygame](https://img.shields.io/badge/Pygame-2.6-green.svg)](https://www.pygame.org/)
 [![IA](https://img.shields.io/badge/IA-Minimax-orange.svg)](https://en.wikipedia.org/wiki/Minimax)
 [![Licencia](https://img.shields.io/badge/Licencia-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
