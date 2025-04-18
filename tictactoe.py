@@ -3,10 +3,16 @@ Tic Tac Toe Player
 """
 
 import math
+import random
 
 X = "X"
 O = "O"
 EMPTY = None
+
+# Difficulty levels
+EASY = "easy"
+MEDIUM = "medium"
+HARD = "hard"
 
 
 def initial_state():
@@ -109,34 +115,46 @@ def utility(board):
         return 0
 
 
-def minimax(board):
+def minimax(board, difficulty=HARD):
     """
-    Returns the optimal action for the current player on the board.
+    Returns the optimal action for the current player on the board based on difficulty level.
     """
     if terminal(board):
         return None
     
-    def max_value(board):
+    possible_actions = list(actions(board))
+    
+    # Easy difficulty: Random moves
+    if difficulty == EASY:
+        return random.choice(possible_actions)
+    
+    # Medium difficulty: 50% chance of making the optimal move, 50% chance of a random move
+    elif difficulty == MEDIUM:
+        if random.random() < 0.5:
+            return random.choice(possible_actions)
+    
+    # For HARD difficulty or the 50% of MEDIUM where we make optimal moves
+    def max_value(board, depth=0):
         if terminal(board):
             return utility(board)
         v = -math.inf
         for action in actions(board):
-            v = max(v, min_value(result(board, action)))
+            v = max(v, min_value(result(board, action), depth + 1))
         return v
 
-    def min_value(board):
+    def min_value(board, depth=0):
         if terminal(board):
             return utility(board)
         v = math.inf
         for action in actions(board):
-            v = min(v, max_value(result(board, action)))
+            v = min(v, max_value(result(board, action), depth + 1))
         return v
 
     current_player = player(board)
     if current_player == X:
         best_val = -math.inf
         best_action = None
-        for action in actions(board):
+        for action in possible_actions:
             action_val = min_value(result(board, action))
             if action_val > best_val:
                 best_val = action_val
@@ -144,7 +162,7 @@ def minimax(board):
     else:
         best_val = math.inf
         best_action = None
-        for action in actions(board):
+        for action in possible_actions:
             action_val = max_value(result(board, action))
             if action_val < best_val:
                 best_val = action_val
