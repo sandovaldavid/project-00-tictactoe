@@ -1,79 +1,85 @@
-# Tic Tac Toe
+# 🎮 Proyecto Tic Tac Toe
 
-This project implements an AI-powered Tic Tac Toe game using the Minimax algorithm. The AI is designed to play optimally, making it impossible to beat if both players play perfectly.
+[![Python](https://img.shields.io/badge/Python-3.x-blue.svg)](https://www.python.org/)
+[![Pygame](https://img.shields.io/badge/Pygame-2.x-green.svg)](https://www.pygame.org/)
+[![IA](https://img.shields.io/badge/IA-Minimax-orange.svg)](https://en.wikipedia.org/wiki/Minimax)
+[![Licencia](https://img.shields.io/badge/Licencia-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## Table of Contents
+_[English version](README.en.md)_
 
-- [Installation](#installation)
-- [Usage](#usage)
-- [Project Structure](#project-structure)
-- [How It Works](#how-it-works)
-- [Contributing](#contributing)
-- [License](#license)
+## 📝 Descripción
 
-## Installation
+Este proyecto implementa el clásico juego de Tic Tac Toe (Tres en Raya) con una interfaz gráfica utilizando Pygame. El juego incluye una IA implementada con el algoritmo Minimax que hace que sea imposible ganarle - a lo sumo podrás empatar si juegas perfectamente.
 
-1. Clone the repository:
+## ✨ Características
 
-   ```bash
-   git clone https://github.com/sandovaldavid/project0_tictactoe.git
-   ```
+-   🎯 Interfaz gráfica intuitiva y amigable
+-   🤖 IA con algoritmo Minimax para una jugabilidad desafiante
+-   🎲 Opción de jugar como X u O
+-   🔄 Juego infinitamente repetible
+-   📊 Detección automática de victoria o empate
 
-2. Navigate to the project directory:
+## 🖼️ Interfaz de Usuario
 
-   ```bash
-   cd project0_tictactoe
-   ```
+<div align="center">
+  <table>
+    <tr>
+      <td><img src="mockups/desktop-01.png" alt="V1.0"></td>
+      <td><img src="mockups/desktop-02.png" alt="V2.0"></td>
+    </tr>
+  </table>
+</div>
 
-3. (Optional) Create a virtual environment:
-
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-   ```
-
-4. Install dependencies:
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-## Usage
-
-To play the game, run the following command:
+## 🚀 Cómo ejecutar el juego
 
 ```bash
+# Instalar las dependencias
+pip install -r requirements.txt
+
+# Ejecutar el juego
 python runner.py
 ```
 
-Follow the on-screen instructions to play against the AI.
+## 🧠 Qué he aprendido
 
-## Project Structure
+Durante el desarrollo de este proyecto, he podido aprender y aplicar:
 
-- `tictactoe.py`: Contains the main logic for the Tic Tac Toe game, including the Minimax algorithm implementation.
-- `runner.py`: The entry point for running the game.
-- `requirements.txt`: List of dependencies required for the project.
+-   **Algoritmos de IA**: Implementación del algoritmo Minimax para la toma de decisiones
+-   **Teoría de juegos**: Conceptos de juegos de suma cero y toma de decisiones óptimas
+-   **Desarrollo con Pygame**: Creación de interfaces gráficas interactivas
+-   **Programación orientada a objetos**: Estructuración del código de manera modular
+-   **Gestión de estados**: Manejo de los diferentes estados del juego
 
-## How It Works
+## 🛠️ Tecnologías utilizadas
 
-### Minimax Algorithm
+-   **Python**: Lenguaje principal de programación
+-   **Pygame**: Biblioteca para el desarrollo de la interfaz gráfica
+-   **Algoritmo Minimax**: Para la inteligencia artificial del juego
 
-The AI uses the Minimax algorithm to determine the optimal move. The algorithm works as follows:
+## 📋 Estructura del proyecto
 
-1. **Player Function**: Determines which player's turn it is (X or O).
-2. **Actions Function**: Returns all possible actions (moves) that can be taken on the board.
-3. **Result Function**: Returns the board state after a move is made.
-4. **Winner Function**: Determines if there is a winner on the board.
-5. **Terminal Function**: Checks if the game is over.
-6. **Utility Function**: Returns the utility of the board state (1 for X win, -1 for O win, 0 for tie).
-7. **Minimax Function**: Recursively evaluates possible moves to find the optimal action.
+```
+project-00-tictactoe/
+├── OpenSans-Regular.ttf   # Fuente utilizada en la interfaz
+├── README.md              # Este archivo
+├── requirements.txt       # Dependencias del proyecto
+├── runner.py              # Código principal y lógica de la interfaz
+└── tictactoe.py           # Implementación de la lógica del juego y algoritmo Minimax
+```
 
-## Contributing
+## 📄 Licencia
 
-Contributions are welcome! Please open an issue or submit a pull request for any changes or improvements.
+Este proyecto está bajo la Licencia MIT - consulta el archivo LICENSE para más detalles.
 
-## License
+---
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+⭐ **Desarrollado como parte de un proyecto de aprendizaje** ⭐
 
-Feel free to copy this content into a `README.md` file in your repository.
+---
+
+<div align="center">
+  <p>
+    <small>Desarrollado como parte del curso <span style="font-weight: bold;">CS50's Introduction to Artificial Intelligence with Python</span> de Edx - 2024</small>
+  </p>
+  <img src="https://img.shields.io/badge/Made%20with-Grid%20CSS-1572B6" alt="Made with: Nodes">
+</div>
