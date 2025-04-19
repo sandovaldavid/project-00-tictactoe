@@ -16,8 +16,74 @@ EASY = "easy"
 MEDIUM = "medium"
 HARD = "hard"
 
+# Theme options
+THEME_CLASSIC = "classic"
+THEME_DARK = "dark"
+THEME_NEON = "neon"
+THEME_RETRO = "retro"
+
+# Piece options
+PIECES_CLASSIC = "classic"  # X and O
+PIECES_CUSTOM = "custom"    # Custom image icons
+
 # Statistics file path
 STATS_FILE = "game_stats.json"
+# Settings file path
+SETTINGS_FILE = "game_settings.json"
+
+# Assets paths
+ICONS_DIR = os.path.join("assets", "icons")
+DEFAULT_X_ICON = os.path.join(ICONS_DIR, "x_icon.png")
+DEFAULT_O_ICON = os.path.join(ICONS_DIR, "o_icon.png")
+
+# Default settings
+DEFAULT_SETTINGS = {
+    "theme": THEME_CLASSIC,
+    "pieces": PIECES_CLASSIC,
+    "board_color": (255, 255, 255),
+    "background_color": (0, 0, 0),
+    "x_color": (255, 255, 255),
+    "o_color": (255, 255, 255),
+    "custom_x_icon": DEFAULT_X_ICON,
+    "custom_o_icon": DEFAULT_O_ICON
+}
+
+# Theme color schemes
+THEME_COLORS = {
+    THEME_CLASSIC: {
+        "board_color": (255, 255, 255),
+        "background_color": (0, 0, 0),
+        "x_color": (255, 255, 255),
+        "o_color": (255, 255, 255),
+        "highlight_color": (100, 100, 255)
+    },
+    THEME_DARK: {
+        "board_color": (100, 100, 100),
+        "background_color": (40, 40, 40),
+        "x_color": (220, 220, 220),
+        "o_color": (180, 180, 180),
+        "highlight_color": (80, 180, 80)
+    },
+    THEME_NEON: {
+        "board_color": (0, 255, 150),
+        "background_color": (20, 20, 50),
+        "x_color": (255, 50, 150),
+        "o_color": (50, 200, 255),
+        "highlight_color": (255, 255, 0)
+    },
+    THEME_RETRO: {
+        "board_color": (210, 180, 140),
+        "background_color": (50, 30, 0),
+        "x_color": (200, 0, 0),
+        "o_color": (0, 100, 200),
+        "highlight_color": (255, 200, 0)
+    }
+}
+
+# Piece symbols for different styles
+PIECE_SYMBOLS = {
+    PIECES_CLASSIC: {X: "X", O: "O"},
+}
 
 def initial_state():
     """
@@ -44,7 +110,6 @@ def actions(board):
     """
     Returns set of all possible actions (i, j) available on the board.
     """
-    # return {(i, j) for i in range(3) for j in range(3) if board[i][j] == EMPTY}
     possible_actions = set()
     for i in range(3):
         for j in range(3):
@@ -247,3 +312,47 @@ def update_stats(player_symbol, winner, difficulty):
     
     save_stats(stats)
     return stats
+
+
+def load_settings():
+    """
+    Load game settings from file or create default settings if file doesn't exist.
+    """
+    if os.path.exists(SETTINGS_FILE):
+        try:
+            with open(SETTINGS_FILE, 'r') as f:
+                settings = json.load(f)
+            return settings
+        except (json.JSONDecodeError, IOError):
+            return DEFAULT_SETTINGS
+    else:
+        save_settings(DEFAULT_SETTINGS)
+        return DEFAULT_SETTINGS
+
+
+def save_settings(settings):
+    """
+    Save game settings to file.
+    """
+    try:
+        with open(SETTINGS_FILE, 'w') as f:
+            json.dump(settings, f, indent=4)
+        return True
+    except IOError:
+        return False
+
+
+def get_piece_symbol(piece, piece_style=PIECES_CLASSIC):
+    """
+    Get the symbol for a piece based on the selected style.
+    """
+    if piece == EMPTY:
+        return ""
+    return PIECE_SYMBOLS.get(piece_style, PIECE_SYMBOLS[PIECES_CLASSIC])[piece]
+
+
+def get_theme_colors(theme=THEME_CLASSIC):
+    """
+    Get the color scheme for a theme.
+    """
+    return THEME_COLORS.get(theme, THEME_COLORS[THEME_CLASSIC])
