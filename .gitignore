@@ -123,3 +123,6 @@ dmypy.json
 
 # Estadistics
 game_stats.json
+
+# Settings
+game_settings.json
