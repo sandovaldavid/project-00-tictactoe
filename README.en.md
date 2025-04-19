@@ -24,8 +24,9 @@ This project implements the classic Tic Tac Toe game with a graphical interface 
 <div align="center">
   <table>
     <tr>
-      <td><img src="mockups/desktop-01.png" alt="V1.0"></td>
-      <td><img src="mockups/desktop-02.png" alt="V2.0"></td>
+      <td><img src="mockups/desktop-menu.png" alt="V2.0"></td>
+      <td><img src="mockups/desktop-game.png" alt="V2.0"></td>
+      <td><img src="mockups/desktop-statistics.png" alt="V2.0"></td>  
     </tr>
   </table>
 </div>

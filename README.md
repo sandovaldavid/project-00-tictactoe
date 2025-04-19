@@ -24,8 +24,9 @@ Este proyecto implementa el clásico juego de Tic Tac Toe (Tres en Raya) con una
 <div align="center">
   <table>
     <tr>
-      <td><img src="mockups/desktop-01.png" alt="V1.0"></td>
-      <td><img src="mockups/desktop-02.png" alt="V2.0"></td>
+      <td><img src="mockups/desktop-menu.png" alt="V2.0"></td>
+      <td><img src="mockups/desktop-game.png" alt="V2.0"></td>
+      <td><img src="mockups/desktop-statistics.png" alt="V2.0"></td>      
     </tr>
   </table>
 </div>
