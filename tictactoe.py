@@ -4,6 +4,8 @@ Tic Tac Toe Player
 
 import math
 import random
+import json
+import os
 
 X = "X"
 O = "O"
@@ -14,6 +16,8 @@ EASY = "easy"
 MEDIUM = "medium"
 HARD = "hard"
 
+# Statistics file path
+STATS_FILE = "game_stats.json"
 
 def initial_state():
     """
@@ -169,3 +173,77 @@ def minimax(board, difficulty=HARD):
                 best_action = action
     
     return best_action
+
+
+def load_stats():
+    """
+    Load game statistics from file or create default stats if file doesn't exist.
+    """
+    default_stats = {
+        "games_played": 0,
+        "player_wins": 0,
+        "ai_wins": 0,
+        "ties": 0,
+        "by_difficulty": {
+            EASY: {"games": 0, "player_wins": 0, "ai_wins": 0, "ties": 0},
+            MEDIUM: {"games": 0, "player_wins": 0, "ai_wins": 0, "ties": 0},
+            HARD: {"games": 0, "player_wins": 0, "ai_wins": 0, "ties": 0}
+        }
+    }
+    
+    if os.path.exists(STATS_FILE):
+        try:
+            with open(STATS_FILE, 'r') as f:
+                stats = json.load(f)
+            return stats
+        except (json.JSONDecodeError, IOError):
+            return default_stats
+    else:
+        return default_stats
+
+
+def save_stats(stats):
+    """
+    Save game statistics to file.
+    """
+    try:
+        with open(STATS_FILE, 'w') as f:
+            json.dump(stats, f, indent=4)
+        return True
+    except IOError:
+        return False
+
+
+def update_stats(player_symbol, winner, difficulty):
+    """
+    Update game statistics after a game ends.
+    
+    Args:
+        player_symbol: The symbol (X or O) the human player was using
+        winner: The winner of the game (X, O, or None for a tie)
+        difficulty: The difficulty level used for the game
+    """
+    stats = load_stats()
+    
+    # Update overall game count
+    stats["games_played"] += 1
+    
+    # Update by difficulty
+    stats["by_difficulty"][difficulty]["games"] += 1
+    
+    # Update win/loss/tie stats
+    if winner is None:
+        # It's a tie
+        stats["ties"] += 1
+        stats["by_difficulty"][difficulty]["ties"] += 1
+    elif winner == player_symbol:
+        # Player won
+        stats["player_wins"] += 1
+        stats["by_difficulty"][difficulty]["player_wins"] += 1
+    else:
+        # AI won
+        stats["ai_wins"] += 1
+        stats["by_difficulty"][difficulty]["ai_wins"] += 1
+    
+    save_stats(stats)
+    return stats
