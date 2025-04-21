@@ -73,6 +73,15 @@ project-00-tictactoe/
 Este proyecto está bajo la Licencia MIT - consulta el archivo LICENSE para más detalles.
 
 ---
+## 👨‍💻 Autor
+
+### [David Sandoval](https://github.com/sandovaldavid)
+
+-   🌐 Portafolio: [devsandoval.me](https://devsandoval.me)
+-   💼 LinkedIn: [@devsandoval](https://linkedin.com/in/devsandoval)
+-   💻 GitHub: [@sandovaldavid](https://github.com/sandovaldavid)
+-   📧 Email: [contact@devsandoval.me](mailto:contact@devsandoval.me)
+---
 
 ⭐ **Desarrollado como parte de un proyecto de aprendizaje** ⭐
 
